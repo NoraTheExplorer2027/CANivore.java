@@ -1,0 +1,29 @@
+import com.ctre.phoenix6.hardware.CANivore;
+import com.ctre.phoenix6.sensors.Pigeon2; 
+import com.ctre.phoenix6.sensors.CANCoder;
+//Here, Pigeon and CANCoder are merely examples of how sensors could integrate into CANivore use.
+//Pigeon and CANcoder are not essential to CANivore function 
+
+
+public class Robot {
+    private CANivore sensorCANivore;
+    private Pigeon2 gyro;
+    private CANCoder encoder;
+
+    public Robot() {
+        // Initialize CANivore for non-drivetrain devices
+        sensorCANivore = new CANivore("SensorBus"); 
+        //SensorBus is an example name we can give the auxiliary CAN bus
+
+        // Example: Initialize non-drivetrain devices on the CANivore
+        gyro = new Pigeon2(10, sensorCANivore.getName()); // CAN ID 10 on SensorBus
+        encoder = new CANCoder(11, sensorCANivore.getName()); // CAN ID 11 on SensorBus
+    }
+
+    public void robotInit() {
+
+        // Example: Configure sensors if needed
+        gyro.getConfigurator().applyDefaultConfiguration();
+        encoder.getConfigurator().applyDefaultConfiguration();
+    }
+}
